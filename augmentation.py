@@ -29,23 +29,7 @@ class RandomApply(nn.Module):
         if random.random() > self.p:
             return x
         return self.fn(x)
-
-input_size = 224
-augmentation = torch.nn.Sequential(
-            RandomApply(
-                transforms.ColorJitter(0.8, 0.8, 0.8, 0.2),
-                p = 0.3
-            ),
-            transforms.RandomGrayscale(p=0.2),
-            transforms.RandomHorizontalFlip(),
-            RandomApply(
-                transforms.GaussianBlur((3, 3), (1.0, 2.0)),
-                p = 0.2
-            ),
-            transforms.RandomResizedCrop((input_size, input_size)),
-            transforms.Normalize(mean=[0.4914, 0.4822, 0.4465],
-            std=[0.247, 0.243, 0.261]),
-        )
+        
 
 def aug(input_size=224):
     augmentation = transforms.Compose([
